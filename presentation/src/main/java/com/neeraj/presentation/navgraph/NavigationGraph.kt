@@ -13,7 +13,7 @@ import com.neeraj.presentation.screens.CocktailDetailScreen
 /**
  * @author Neeraj Manchanda
  * This function define a navigation graph using Navigation component.
- * It sets up navigation between two destinations: a book list screen and a book detail screen.
+ * It sets up navigation between two destinations: a cocktail list screen and a cocktail detail screen.
  */
 @Composable
 fun NavigationGraph() {
@@ -27,7 +27,7 @@ fun NavigationGraph() {
         }
 
         composable(Routes.CocktailDetailScreen.route + "/{cocktailId}") { navBackStackEntry ->
-            val bookId = navBackStackEntry.arguments?.getString(UiConstants.cocktailId)
+            val cocktailId = navBackStackEntry.arguments?.getString(UiConstants.cocktailId)
             bookId?.let { CocktailDetailScreen(it, navController) }
         }
     }

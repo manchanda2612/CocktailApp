@@ -19,7 +19,7 @@ import coil.request.CachePolicy
 import coil.size.Scale
 import com.neeraj.domain.model.CocktailListModel
 import com.neeraj.presentation.R
-import com.neeraj.presentation.uicomponents.DisplayBookImageFromUrl
+import com.neeraj.presentation.uicomponents.DisplayCocktailImageFromUrl
 import com.neeraj.presentation.uicomponents.ShowToolbar
 import com.neeraj.presentation.route.Routes
 import com.neeraj.presentation.theme.Dimens
@@ -27,23 +27,23 @@ import com.neeraj.presentation.theme.Dimens
 
 /**
  * @author Neeraj Manchanda
- * It is a Composable function that represents the UI for displaying book list using Jetpack Compose.
+ * It is a Composable function that represents the UI for displaying cocktail list using Jetpack Compose.
  */
 @Composable
 fun CocktailListScreen(navController: NavController) {
 
-   /* val bookViewModel: BookListViewModel = hiltViewModel()
-    val bookList = bookViewModel.bookListViewModel.collectAsState()*/
+   /* val cocktailViewModel: cocktailListViewModel = hiltViewModel()
+    val cocktailList = cocktailViewModel.cocktailListViewModel.collectAsState()*/
 
 
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
         ShowToolbar(stringResource(R.string.cocktail_listing))
-        /*when (bookList.value) {
+        /*when (cocktailList.value) {
             is Resources.Loading -> ShowProgressBar()
-            is Resources.Success<*> -> ShowCocktailList((bookList.value as Resources.Success<List<CocktailListModel>>).data, navController)
-            is Resources.Failure -> ShowErrorMessage(bookList.value.toString())
+            is Resources.Success<*> -> ShowCocktailList((cocktailList.value as Resources.Success<List<CocktailListModel>>).data, navController)
+            is Resources.Failure -> ShowErrorMessage(cocktailList.value.toString())
         }*/
     }
 }
@@ -73,7 +73,7 @@ fun ItemCard(cocktail : CocktailListModel, navController: NavController) {
             shape = MaterialTheme.shapes.medium
         ) {
             Column(modifier = Modifier.padding(Dimens.ten_dp)) {
-                DisplayBookImageFromUrl(
+                DisplayCocktailImageFromUrl(
                     cocktail.cocktailImage,
                     Modifier.fillMaxWidth().height(Dimens.hundred_dp)
                     .padding(Dimens.four_dp),

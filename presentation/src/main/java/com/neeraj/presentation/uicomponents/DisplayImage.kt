@@ -14,7 +14,7 @@ import coil.request.ImageRequest
 import coil.size.Scale
 
 @Composable
-fun DisplayBookImageFromUrl(
+fun DisplayCocktailImageFromUrl(
     imageUrl: String,
     modifier: Modifier,
     @DrawableRes placeholderImage: Int,
@@ -27,7 +27,7 @@ fun DisplayBookImageFromUrl(
 
     Row(verticalAlignment = Alignment.CenterVertically) {
 
-        val bookImage = rememberAsyncImagePainter(
+        val cocktailImage = rememberAsyncImagePainter(
             ImageRequest.Builder(LocalContext.current)
                 .data(imageUrl)
                 .apply(block = fun ImageRequest.Builder.() {
@@ -39,7 +39,7 @@ fun DisplayBookImageFromUrl(
         )
 
         Image(
-            painter = bookImage,
+            painter = cocktailImage,
             contentDescription = contentDescription,
             contentScale = contentScale,
             modifier = modifier

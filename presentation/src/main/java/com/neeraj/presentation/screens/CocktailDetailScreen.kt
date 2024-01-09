@@ -12,64 +12,64 @@ import androidx.navigation.NavController
 @Composable
 fun CocktailDetailScreen(cocktailId : String, navController: NavController) {
 
-  /*  val viewModel: BookDetailViewModel = hiltViewModel()
-    val bookDetailInfo = viewModel.bookDetail.collectAsState()
+  /*  val viewModel: cocktailDetailViewModel = hiltViewModel()
+    val cocktailDetailInfo = viewModel.cocktailDetail.collectAsState()
 */
     /*LaunchedEffect(Unit) {
-        viewModel.getBookDetail(bookId)
+        viewModel.getcocktailDetail(cocktailId)
     }*/
 
     /*Column(
         modifier = Modifier.fillMaxWidth()) {
-        ShowToolbar(stringResource(R.string.book_info), true) { navController.popBackStack() }
-        when (bookDetailInfo.value) {
+        ShowToolbar(stringResource(R.string.cocktail_info), true) { navController.popBackStack() }
+        when (cocktailDetailInfo.value) {
             is Resources.Loading -> ShowProgressBar()
-            is Resources.Success -> ShowBookDetailScreen((bookDetailInfo.value as Resources.Success<BookDetailModel>).data)
-            is Resources.Failure -> ShowErrorMessage(bookDetailInfo.value.toString())
+            is Resources.Success -> ShowcocktailDetailScreen((cocktailDetailInfo.value as Resources.Success<cocktailDetailModel>).data)
+            is Resources.Failure -> ShowErrorMessage(cocktailDetailInfo.value.toString())
         }
     }*/
 }
 
 /*@Composable
-fun ShowBookDetailScreen(bookDetailModel: BookDetailModel) {
+fun ShowcocktailDetailScreen(cocktailDetailModel: cocktailDetailModel) {
 
         Column(modifier = Modifier.padding(Dimens.ten_dp)) {
-            DisplayBookImageFromUrl(
-                bookDetailModel.thumbnail,
+            DisplaycocktailImageFromUrl(
+                cocktailDetailModel.thumbnail,
                 Modifier.fillMaxWidth().height(Dimens.two_hundred_dp),
-                R.drawable.ic_book_placeholder,
-                R.drawable.ic_book_placeholder,
+                R.drawable.ic_cocktail_placeholder,
+                R.drawable.ic_cocktail_placeholder,
                 Scale.FILL,
                 ContentScale.Fit,
-                stringResource(R.string.book_image),
+                stringResource(R.string.cocktail_image),
                 CachePolicy.ENABLED
             )
 
             Spacer(modifier = Modifier.height(Dimens.eight_dp))
 
             Text(
-                text = bookDetailModel.bookTitle,
+                text = cocktailDetailModel.cocktailTitle,
                 style = MaterialTheme.typography.headlineLarge
             )
 
             Spacer(modifier = Modifier.height(Dimens.four_dp))
 
             Text(
-                text = bookDetailModel.bookSubtitle,
+                text = cocktailDetailModel.cocktailSubtitle,
                 style = MaterialTheme.typography.headlineSmall
             )
 
             Spacer(modifier = Modifier.height(Dimens.four_dp))
 
             Text(
-                text = stringResource(R.string.written_by, bookDetailModel.bookAuthors),
+                text = stringResource(R.string.written_by, cocktailDetailModel.cocktailAuthors),
                 style = MaterialTheme.typography.bodyMedium
             )
 
 
             Spacer(modifier = Modifier.width(Dimens.four_dp))
             Text(
-                text = stringResource(R.string.published_by, bookDetailModel.publisher),
+                text = stringResource(R.string.published_by, cocktailDetailModel.publisher),
                 style = MaterialTheme.typography.bodyMedium,
             )
 
@@ -77,7 +77,7 @@ fun ShowBookDetailScreen(bookDetailModel: BookDetailModel) {
             Spacer(modifier = Modifier.height(Dimens.four_dp))
 
             Text(
-                text = stringResource(R.string.published_on, bookDetailModel.publishDate),
+                text = stringResource(R.string.published_on, cocktailDetailModel.publishDate),
                 style = MaterialTheme.typography.bodyMedium
             )
         }
