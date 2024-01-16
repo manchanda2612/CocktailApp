@@ -21,4 +21,4 @@ sealed interface CocktailDetailViewIntent : ViewIntent {
 
 }
 
-sealed interface CocktailDetailSideEffect : SideEffect {}
+sealed interface CocktailDetailSideEffect : SideEffect

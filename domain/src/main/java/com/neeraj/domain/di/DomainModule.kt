@@ -1,4 +1,4 @@
-package com.neeraj.domain.di.cocktaillist
+package com.neeraj.domain.di
 
 import com.neeraj.domain.repository.cocktaildetail.CocktailDetailRepository
 import com.neeraj.domain.repository.cocktaillist.CocktailListRepository

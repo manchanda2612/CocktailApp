@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 /**
  * @author Neeraj Manchanda
- * This class is responsible for mapping data from response models (e.g., CocktailListResponseModel, CocktailDetailResponseModel) to application's domain models (CocktailListModel, CocktailDetailModel).
+ * This class is responsible for mapping data from response models CocktailDetailResponseModel to application's domain models CocktailListModel.
  * It basically transforming network data into a format that's more suitable for application's needs.
  */
 class CocktailListMapper @Inject constructor() {
