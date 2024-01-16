@@ -33,7 +33,6 @@ import com.neeraj.presentation.uicomponents.DisplayCocktailImageFromUrl
 import com.neeraj.presentation.theme.Dimens
 import com.neeraj.presentation.uicomponents.ShowErrorMessage
 import com.neeraj.presentation.uicomponents.ShowProgressBar
-import com.neeraj.presentation.uicomponents.ShowToolbar
 
 
 @Composable
@@ -86,37 +85,26 @@ private fun GetCocktailList(cocktailListViewModel: CocktailListViewModel) {
 
 @Composable
 fun ShowCocktailList(
-    cocktailList : List<CocktailListDisplayModel>,
-    onItemClick: (CocktailListDisplayModel) -> Unit) {
-    Scaffold(
-        topBar = {
-            ShowToolbar(stringResource(R.string.cocktail_listing))
-        }
-    ) {
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = it.calculateTopPadding()),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            cocktailList.let {
-                LazyColumn {
-                    items(it) {
-                        ItemCard(cocktail = it, onItemClick = onItemClick)
-                    }
-                }
+    cocktailList: List<CocktailListDisplayModel>,
+    onItemClick: (CocktailListDisplayModel) -> Unit
+) {
+
+    cocktailList.let {
+        LazyColumn {
+            items(it) {
+                ItemCard(cocktail = it, onItemClick = onItemClick)
             }
         }
     }
 }
 
 @Composable
-fun ItemCard(cocktail: CocktailListDisplayModel, onItemClick : (CocktailListDisplayModel) -> Unit) {
+fun ItemCard(cocktail: CocktailListDisplayModel, onItemClick: (CocktailListDisplayModel) -> Unit) {
 
     Column(modifier = Modifier.padding(Dimens.five_dp)) {
         Card(
             onClick = {
-                   onItemClick.invoke(cocktail)
+                onItemClick.invoke(cocktail)
             },
             modifier = Modifier
                 .padding(Dimens.ten_dp)

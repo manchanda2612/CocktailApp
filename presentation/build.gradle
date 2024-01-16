@@ -71,13 +71,6 @@ android {
 
 dependencies {
 
-   /* implementation 'androidx.core:core-ktx:1.12.0'
-    implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.9.0'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'*/
-
     testImplementation rootProject.ext.testDependencies.junit
     androidTestImplementation platform(rootProject.ext.dependencies.composeBom)
     androidTestImplementation rootProject.ext.testDependencies.composeUiTest
@@ -91,8 +84,6 @@ dependencies {
     implementation rootProject.ext.dependencies.material
     implementation rootProject.ext.dependencies.hilt
     kapt rootProject.ext.dependencies.hiltCompiler
-    implementation rootProject.ext.dependencies.lifecycleExtension
-    implementation rootProject.ext.dependencies.lifecycleRuntime
     implementation platform(rootProject.ext.dependencies.composeBom)
     implementation rootProject.ext.dependencies.composeUi
     implementation rootProject.ext.dependencies.composeGraphics
@@ -104,9 +95,6 @@ dependencies {
     implementation rootProject.ext.dependencies.composeNavigation
     implementation rootProject.ext.dependencies.hiltCompose
     implementation rootProject.ext.dependencies.composeMaterial
-    implementation rootProject.ext.dependencies.gson
-    implementation rootProject.ext.dependencies.retrofit
-    implementation rootProject.ext.dependencies.retrofitConverter
 
     //domain dependency
     implementation project(path: ':domain')

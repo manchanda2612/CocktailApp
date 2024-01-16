@@ -14,11 +14,23 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
+/**
+ * @author Neeraj Manchanda
+ * Network Module for providing network-related dependencies, such as OkHttpClient and Retrofit,
+ * used for making API requests within the application.
+ *
+ * @property TIMEOUT The default timeout value for network operations.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
     private const val TIMEOUT = 60L
 
+    /**
+     * Provides an instance of [HttpLoggingInterceptor] for logging HTTP requests and responses.
+     *
+     * @return An instance of [HttpLoggingInterceptor] configured based on build type.
+     */
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
@@ -27,6 +39,12 @@ object NetworkModule {
         }
     }
 
+    /**
+     * Provides a singleton instance of [OkHttpClient] with specified timeouts and logging interceptor.
+     *
+     * @param interceptor The [HttpLoggingInterceptor] for logging HTTP requests and responses.
+     * @return A singleton instance of [OkHttpClient] configured with timeouts and logging.
+     */
     @Provides
     @Singleton
     fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
@@ -38,6 +56,12 @@ object NetworkModule {
             .build()
     }
 
+    /**
+     * Provides a singleton instance of [CocktailApiService] using Retrofit for API communication.
+     *
+     * @param okHttpClient The [OkHttpClient] instance for handling network requests.
+     * @return A singleton instance of [CocktailApiService] for making API calls.
+     */
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): CocktailApiService {
