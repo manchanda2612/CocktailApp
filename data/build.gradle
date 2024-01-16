@@ -70,6 +70,11 @@ dependencies {
     implementation rootProject.ext.dependencies.appCompat
     implementation rootProject.ext.dependencies.material
 
+    implementation rootProject.ext.dependencies.retrofit
+    implementation rootProject.ext.dependencies.retrofitConverter
+    implementation rootProject.ext.dependencies.logInterceptor
+    implementation rootProject.ext.dependencies.gson
+
     testImplementation rootProject.ext.testDependencies.junit
     testImplementation rootProject.ext.testDependencies.mockk
     testImplementation rootProject.ext.testDependencies.coroutinesTest

@@ -11,6 +11,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.material3.*
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import com.neeraj.presentation.R
 
@@ -18,7 +19,7 @@ import com.neeraj.presentation.R
 fun ShowToolbar(title: String, showBackButton: Boolean = false, onBackButtonClicked: (() -> Unit)? = null) {
     TopAppBar(
         modifier = Modifier.fillMaxWidth(),
-        colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = MaterialTheme.colorScheme.primary),
+        colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = colorResource(R.color.purple_50)),
         title = {
             Text(
                 text = title,

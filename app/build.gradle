@@ -41,7 +41,7 @@ android {
         cocktailDemo {
             dimension "environment"
             applicationId rootProject.ext.app_config.applicationId
-            buildConfigField "String", "BASE_URL", '"www.thecocktaildb.com/api/json/v1/1/"'
+            buildConfigField "String", "BASE_URL", '"https://www.thecocktaildb.com/api/json/v1/1/"'
         }
     }
 
