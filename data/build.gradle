@@ -58,6 +58,8 @@ android {
 
 dependencies {
 
+    implementation rootProject.ext.dependencies.hilt
+    kapt rootProject.ext.dependencies.hiltCompiler
     implementation rootProject.ext.dependencies.retrofit
     implementation rootProject.ext.dependencies.retrofitConverter
     implementation rootProject.ext.dependencies.logInterceptor
@@ -66,9 +68,6 @@ dependencies {
     testImplementation rootProject.ext.testDependencies.junit
     testImplementation rootProject.ext.testDependencies.mockk
     testImplementation rootProject.ext.testDependencies.coroutinesTest
-
-    implementation rootProject.ext.dependencies.hilt
-    kapt rootProject.ext.dependencies.hiltCompiler
 
     //common module
     implementation project(path: ':common')

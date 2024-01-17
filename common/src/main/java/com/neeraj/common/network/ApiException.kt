@@ -4,7 +4,7 @@ import java.lang.Exception
 
 /**
  * @author Neeraj Manchanda
- * Custom exception class representing an API-related error.
+ * Custom exception class representing an API-related error,network-related error,data-related error
  *
  * @property code The HTTP status code associated with the API error.
  * @property message A readable message providing details about the API error.
@@ -12,19 +12,7 @@ import java.lang.Exception
  */
 class ApiException(val code: Int, message: String?) : Exception(message)
 
-/**
- * Custom exception class representing a network-related error.
- *
- * @property message A readable message providing details about the network error.
- * @constructor Creates an instance of [NetworkException] with the specified message.
- */
 class NetworkException(message: String?) : Exception(message)
 
-/**
- * Custom exception class representing a data-related error.
- *
- * @property message A readable message providing details about the data error.
- * @constructor Creates an instance of [DataException] with the specified message.
- */
 class DataException(message: String?) : Exception(message)
 

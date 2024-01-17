@@ -14,7 +14,6 @@ class CocktailListMapper @Inject constructor() {
 
     fun getCocktailList(cocktailListResponseModel: CocktailListResponseModel): Resources<List<CocktailListModel>> =
         Resources.Success(cocktailListResponseModel.drinks.map {
-            CocktailListModel(it.idDrink, it.strDrink, it.strAlcoholic,it.strCategory, it.strDrinkThumb
-            )
+            CocktailListModel(it.idDrink, it.strDrink, it.strAlcoholic,it.strCategory, it.strDrinkThumb)
         })
 }

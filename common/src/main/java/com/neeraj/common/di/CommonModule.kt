@@ -20,23 +20,11 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object CommonModule {
 
-    /**
-     * Provides the application context for dependency injection.
-     *
-     * @param context The application context provided by Dagger Hilt.
-     * @return The application context to be used for dependency injection.
-     */
     @Provides
     fun provideApplicationContext(@ApplicationContext context: Context): Context {
         return context
     }
 
-    /**
-     * Provides an instance of [InternetUtil] for checking internet connectivity.
-     *
-     * @param context The application context to be used for initializing [InternetUtil].
-     * @return An instance of [InternetUtil] for internet connectivity checks.
-     */
     @Provides
     fun provideInternetUtil(context: Context): InternetUtil {
         return InternetUtil(context)

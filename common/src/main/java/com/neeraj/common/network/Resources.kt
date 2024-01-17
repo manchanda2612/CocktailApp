@@ -12,18 +12,9 @@ import java.lang.Exception
  * @param T The type of data encapsulated by the resource.
  */
 sealed class Resources<out T> {
-    /**
-     * Represents the successful outcome of a resource retrieval operation.
-     *
-     * @property data The retrieved data of type [T].
-     */
+
     data class Success<out T>(val data: T) : Resources<T>()
 
-    /**
-     * Represents the failure outcome of a resource retrieval operation.
-     *
-     * @property exception The exception providing details about the failure.
-     */
     data class Failure<T>(val exception: Exception) : Resources<T>()
 }
 

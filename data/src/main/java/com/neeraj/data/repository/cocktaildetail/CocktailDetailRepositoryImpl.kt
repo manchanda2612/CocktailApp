@@ -7,6 +7,13 @@ import com.neeraj.domain.repository.cocktaildetail.CocktailDetailRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
+/**
+ * @author Neeraj Manchanda
+ *
+ * Implementation of the [CocktailDetailRepository] interface that interacts with
+ * the [CocktailDetailService] to fetch details for a specific cocktail.
+ * @property cocktailDetailService Service responsible for fetching cocktail details from the API.
+ */
 class CocktailDetailRepositoryImpl @Inject constructor(
     private val cocktailDetailService: CocktailDetailService
 ) : CocktailDetailRepository {

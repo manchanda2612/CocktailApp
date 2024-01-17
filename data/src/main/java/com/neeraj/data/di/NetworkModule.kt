@@ -26,11 +26,6 @@ import javax.inject.Singleton
 object NetworkModule {
     private const val TIMEOUT = 60L
 
-    /**
-     * Provides an instance of [HttpLoggingInterceptor] for logging HTTP requests and responses.
-     *
-     * @return An instance of [HttpLoggingInterceptor] configured based on build type.
-     */
     @Provides
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
@@ -39,12 +34,6 @@ object NetworkModule {
         }
     }
 
-    /**
-     * Provides a singleton instance of [OkHttpClient] with specified timeouts and logging interceptor.
-     *
-     * @param interceptor The [HttpLoggingInterceptor] for logging HTTP requests and responses.
-     * @return A singleton instance of [OkHttpClient] configured with timeouts and logging.
-     */
     @Provides
     @Singleton
     fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
@@ -56,12 +45,6 @@ object NetworkModule {
             .build()
     }
 
-    /**
-     * Provides a singleton instance of [CocktailApiService] using Retrofit for API communication.
-     *
-     * @param okHttpClient The [OkHttpClient] instance for handling network requests.
-     * @return A singleton instance of [CocktailApiService] for making API calls.
-     */
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): CocktailApiService {

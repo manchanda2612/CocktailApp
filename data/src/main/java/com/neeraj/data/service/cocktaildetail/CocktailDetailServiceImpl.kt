@@ -16,6 +16,15 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * @author Neeraj Manchanda
+ * Implementation of [CocktailDetailService] responsible for fetching detailed information about a cocktail
+ * from the remote data source using the provided [CocktailApiService], [CocktailDetailMapper], and [InternetUtil].
+ *
+ * @param cocktailApiService The service providing API calls related to cocktails.
+ * @param cocktailDetailMapper The mapper responsible for converting API responses to [CocktailDetailModel].
+ * @param internetUtil The utility class for checking internet connectivity.
+ */
 class CocktailDetailServiceImpl @Inject constructor(
     private val cocktailApiService: CocktailApiService,
     private val cocktailDetailMapper: CocktailDetailMapper,

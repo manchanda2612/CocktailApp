@@ -11,7 +11,6 @@ import retrofit2.http.Query
  * @author Neeraj Manchanda
  * An interface defines the endpoints for making API calls to retrieve a list of cocktail and cocktail details.
  */
-
 interface CocktailApiService {
 
     @GET("search.php")

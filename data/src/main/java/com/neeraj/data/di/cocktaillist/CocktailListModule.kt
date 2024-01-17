@@ -26,14 +26,7 @@ import dagger.hilt.android.components.ViewModelComponent
 @Module
 object CocktailListModule {
 
-    /**
-     * Provides an implementation of [CocktailListService] using the provided dependencies.
-     *
-     * @param cocktailApiService The service responsible for fetching Cocktail list data from an API.
-     * @param cocktailListMapper The mapper for converting raw data to a structured Cocktail model list.
-     * @param internetUtil The utility for checking internet connectivity.
-     * @return An instance of [CocktailListService] for managing Cocktail list data.
-     */
+
     @Provides
     fun provideCocktailListService(
         cocktailApiService: CocktailApiService,
@@ -42,12 +35,6 @@ object CocktailListModule {
     ): CocktailListService =
         CocktailListServiceImpl(cocktailApiService, cocktailListMapper, internetUtil)
 
-    /**
-     * Provides an implementation of [CocktailListRepository] using the provided [CocktailListService].
-     *
-     * @param cocktailListService The service for managing Cocktail list data.
-     * @return An instance of [CocktailListRepository] for handling Cocktail list data.
-     */
     @Provides
     fun provideCocktailListRepository(cocktailListService: CocktailListService): CocktailListRepository =
         CocktailListRepositoryImpl(cocktailListService)

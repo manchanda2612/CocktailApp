@@ -14,7 +14,7 @@ import dagger.hilt.android.components.ViewModelComponent
 /**
  * @author Neeraj Manchanda
  *
- * This class provide dependencies related to the domain layer.
+ * This class provide dependencies related to the domain layer such as use case.
  */
 @InstallIn(ViewModelComponent::class)
 @Module

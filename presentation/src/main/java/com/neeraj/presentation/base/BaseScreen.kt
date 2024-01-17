@@ -19,7 +19,19 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 
+
+/**
+ * @author Neeraj Manchanda
+ * A composable function representing the base screen structure.
+ *
+ * @param title The title of the screen displayed in the app bar.
+ * @param showBackButton Whether to show the back button in the app bar.
+ * @param onBackButtonClicked Callback to be invoked when the back button is clicked.
+ * @param content The content to be displayed on the screen.
+ */
 @Composable
 fun BaseScreen(
     title: String,

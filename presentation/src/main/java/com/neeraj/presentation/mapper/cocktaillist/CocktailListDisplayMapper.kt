@@ -6,6 +6,11 @@ import com.neeraj.presentation.R
 import com.neeraj.presentation.model.cocktaillist.CocktailListDisplayModel
 import javax.inject.Inject
 
+/**
+ * @author Neeraj Manchanda
+ * Mapper class responsible for mapping a list of [CocktailListModel] to a list of [CocktailListDisplayModel].
+ * @param applicationContext The [Context] used for obtaining localized string resources.
+ */
 class CocktailListDisplayMapper @Inject constructor(private val applicationContext : Context) {
 
     fun getCocktailList(cocktailListModel: List<CocktailListModel>): List<CocktailListDisplayModel> {

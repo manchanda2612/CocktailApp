@@ -1,5 +1,9 @@
 package com.neeraj.presentation.constant
 
+/**
+ * @author Neeraj Manchanda
+ * A utility class holding constant values related to UI screens and navigation.
+ */
 class UiConstants {
 
     companion object {

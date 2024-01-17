@@ -6,6 +6,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 
+/**
+ * @author Neeraj Manchanda
+ * Abstract base class for ViewModels in the MVVM architecture.
+ *
+ * @param viewState The type representing the state of the view.
+ * @param viewIntent The type representing the intents sent to the ViewModel.
+ * @param sideEffect The type representing the side effects produced by the ViewModel.
+ */
 abstract class  BaseViewModel <viewState : ViewState, viewIntent : ViewIntent, sideEffect : SideEffect> : ViewModel() {
 
     private val initialState : viewState by lazy { createInitialState() }

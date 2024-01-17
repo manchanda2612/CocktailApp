@@ -3,7 +3,14 @@ package com.neeraj.data.model.cocktaillist
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-
+/**
+ * @author Neeraj Manchanda
+ * Data class representing the response model for a list of cocktails.
+ * This class is used to deserialize JSON responses from the API, providing a structured
+ * representation of a list of cocktails.
+ *
+ * @property drinks List of [Drink] objects, each containing basic details of a specific cocktail.
+ */
 data class CocktailListResponseModel(
     @SerializedName("drinks")
     @Expose
