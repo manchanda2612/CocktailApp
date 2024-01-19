@@ -2,7 +2,6 @@ package com.neeraj.data.network
 
 import com.neeraj.data.model.cocktaildetail.CocktailDetailResponseModel
 import com.neeraj.data.model.cocktaillist.CocktailListResponseModel
-import com.neeraj.domain.model.cocktaildetail.CocktailDetailModel
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

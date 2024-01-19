@@ -1,11 +1,13 @@
-package com.neeraj.data.util
+package com.neeraj.domain.util
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.neeraj.common.network.Resources
 import com.neeraj.domain.model.cocktaildetail.CocktailDetailModel
 import com.neeraj.domain.model.cocktaillist.CocktailListModel
+/*
 import retrofit2.Response
+*/
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -37,14 +39,6 @@ class TestUtils {
             val writer = StringWriter()
             while (-1 != reader.read(buffer).also { n = it }) writer.write(buffer, 0, n)
             return writer.toString()
-        }
-
-        fun <T> convertJsonToModel(jsonString: String, classT: Class<T>): T {
-            return gson.fromJson(jsonString, classT)
-        }
-
-        fun <T> convertJsonToResponseModel(jsonString: String, classT: Class<T>): Response<T> {
-            return Response.success(gson.fromJson(jsonString, classT))
         }
 
          fun parseJSONToCocktailList(jsonString: String): Resources<List<CocktailListModel>> {

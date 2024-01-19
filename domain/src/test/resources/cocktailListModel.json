@@ -1,0 +1,16 @@
+[
+  {
+    "cocktailId": "12776",
+    "cocktailName": "Melya",
+    "isAlcoholic": "Non alcoholic",
+    "cocktailCategory": "Coffee / Tea",
+    "cocktailImage": "https://www.thecocktaildb.com/images/media/drink/xwtptq1441247579.jpg"
+  },
+  {
+    "cocktailId": "11000",
+    "cocktailName": "Mojito",
+    "isAlcoholic": "Alcoholic",
+    "cocktailCategory": "Cocktail",
+    "cocktailImage": "https://www.thecocktaildb.com/images/media/drink/metwgh1606770327.jpg"
+  }
+]

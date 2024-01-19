@@ -56,5 +56,4 @@ class CocktailListServiceImpl @Inject constructor(
             emit(response)
         }.flowOn(Dispatchers.IO)
     }
-
 }

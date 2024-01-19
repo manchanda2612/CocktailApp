@@ -64,13 +64,15 @@ dependencies {
     testImplementation rootProject.ext.testDependencies.mockk
     testImplementation rootProject.ext.dependencies.gson
     testImplementation rootProject.ext.testDependencies.coroutinesTest
+    implementation rootProject.ext.dependencies.retrofit
+    implementation rootProject.ext.dependencies.retrofitConverter
+    implementation rootProject.ext.dependencies.logInterceptor
 
 
     implementation rootProject.ext.dependencies.hilt
     kapt rootProject.ext.dependencies.hiltCompiler
 
     implementation rootProject.ext.dependencies.coilCompose
-    
     implementation rootProject.ext.dependencies.hiltCompose
 
     //common module
