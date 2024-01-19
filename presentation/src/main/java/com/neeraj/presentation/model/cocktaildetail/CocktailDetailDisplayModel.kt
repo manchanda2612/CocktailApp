@@ -10,6 +10,6 @@ data class CocktailDetailDisplayModel(
     val isAlcoholic : String,
     val cocktailCategory : String,
     val cocktailImage : String,
-    val cocktailInstructions  : String,
+    val cocktailInstruction  : String,
     val cocktailModifiedDate  : String
 )

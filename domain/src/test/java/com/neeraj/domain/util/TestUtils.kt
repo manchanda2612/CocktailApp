@@ -33,7 +33,7 @@ class TestUtils {
 
         @Throws(IOException::class)
         private fun getStringFromInputStream(stream: InputStream?): String {
-            var n = 0
+            var n :Int
             val buffer = CharArray(1024 * 4)
             val reader = InputStreamReader(stream, "UTF8")
             val writer = StringWriter()

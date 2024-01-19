@@ -1,11 +1,13 @@
-package com.neeraj.data.util
+package com.neeraj.presentation.util
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.neeraj.common.network.Resources
 import com.neeraj.domain.model.cocktaildetail.CocktailDetailModel
 import com.neeraj.domain.model.cocktaillist.CocktailListModel
+/*
 import retrofit2.Response
+*/
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -31,7 +33,7 @@ class TestUtils {
 
         @Throws(IOException::class)
         private fun getStringFromInputStream(stream: InputStream?): String {
-            var n: Int
+            var n :Int
             val buffer = CharArray(1024 * 4)
             val reader = InputStreamReader(stream, "UTF8")
             val writer = StringWriter()
@@ -39,24 +41,10 @@ class TestUtils {
             return writer.toString()
         }
 
-        fun <T> convertJsonToModel(jsonString: String, classT: Class<T>): T {
-            return gson.fromJson(jsonString, classT)
-        }
-
-        fun <T> convertJsonToResponseModel(jsonString: String, classT: Class<T>): Response<T> {
-            return Response.success(gson.fromJson(jsonString, classT))
-        }
-
-         fun parseJSONToCocktailList(jsonString: String): Resources<List<CocktailListModel>> {
-                    val listType = object : TypeToken<List<CocktailListModel>>() {}.type
-                    val cocktailList = gson.fromJson<List<CocktailListModel>>(jsonString, listType)
-                    return Resources.Success(cocktailList)
-        }
-
-        fun parseJSONToCocktailDetail(jsonString: String): Resources<CocktailDetailModel> {
-            val listType = object : TypeToken<CocktailDetailModel>() {}.type
-            val cocktailDetail = gson.fromJson<CocktailDetailModel>(jsonString, listType)
-            return Resources.Success(cocktailDetail)
+        inline fun <reified T> convertJsonToModel(jsonString: String): T {
+            val gson = Gson()
+            val type = object : TypeToken<T>() {}.type
+            return gson.fromJson(jsonString, type)
         }
 
     }

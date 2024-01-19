@@ -102,7 +102,7 @@ fun ShowBookDetailScreen(cocktailDetailModel: CocktailDetailDisplayModel) {
 
             Spacer(modifier = Modifier.width(Dimens.four_dp))
             Text(
-                text = cocktailDetailModel.cocktailInstructions,
+                text = cocktailDetailModel.cocktailInstruction,
                 style = MaterialTheme.typography.bodyMedium,
             )
 
