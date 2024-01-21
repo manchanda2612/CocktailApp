@@ -10,7 +10,7 @@ apply from: rootProject.file('dependencies.gradle')
 android {
 
     ext {
-        nameSpace = 'com.neeraj.domain'
+        nameSpace = 'com.sapi.domain'
     }
 
     namespace "$nameSpace"

@@ -11,7 +11,7 @@ apply from: rootProject.file('dependencies.gradle')
 android {
 
     ext {
-        nameSpace = 'com.neeraj.presentation'
+        nameSpace = 'com.sapi.presentation'
     }
 
     namespace "$nameSpace"

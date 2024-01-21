@@ -9,7 +9,7 @@ ext {
             versionName      : "1.0",
             buildToolsVersion: "30.0.2",
             jvmTarget        : '1.8',
-            applicationId    : 'com.neeraj.cocktail',
+            applicationId    : 'com.sapi.cocktail',
             javaVersion      : JavaVersion.VERSION_1_8
     ]
 
