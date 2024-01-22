@@ -2,8 +2,6 @@ package com.sapi.data.util
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.sapi.common.network.Resources
-import com.sapi.domain.model.cocktaildetail.CocktailDetail
 import com.sapi.domain.model.cocktaillist.CocktailList
 import retrofit2.Response
 import java.io.IOException
@@ -47,18 +45,10 @@ class TestUtils {
             return Response.success(gson.fromJson(jsonString, classT))
         }
 
-         fun parseJSONToCocktailList(jsonString: String): Resources<List<CocktailList>> {
+         fun parseJSONToCocktailList(jsonString: String): List<CocktailList> {
                     val listType = object : TypeToken<List<CocktailList>>() {}.type
-                    val cocktailList = gson.fromJson<List<CocktailList>>(jsonString, listType)
-                    return Resources.Success(cocktailList)
+                    return gson.fromJson(jsonString, listType)
         }
-
-        fun parseJSONToCocktailDetail(jsonString: String): Resources<CocktailDetail> {
-            val listType = object : TypeToken<CocktailDetail>() {}.type
-            val cocktailDetail = gson.fromJson<CocktailDetail>(jsonString, listType)
-            return Resources.Success(cocktailDetail)
-        }
-
     }
 }
 

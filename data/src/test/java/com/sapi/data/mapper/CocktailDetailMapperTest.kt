@@ -1,10 +1,11 @@
 package com.sapi.data.mapper
 
-import com.sapi.data.constant.cocktailDetailModel
-import com.sapi.data.constant.cocktailDetailResponseModel
+import com.sapi.data.constant.cocktailDetailJson
 import com.sapi.data.mapper.cocktaildetail.CocktailDetailMapper
 import com.sapi.data.model.cocktaildetail.CocktailDetailResponse
 import com.sapi.data.util.TestUtils
+import com.sapi.domain.model.cocktaildetail.CocktailDetail
+import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -12,6 +13,8 @@ import org.junit.Test
 class CocktailDetailMapperTest {
 
     private lateinit var cocktailDetailMapper : CocktailDetailMapper
+    private val cocktailDetail: CocktailDetail = mockk<CocktailDetail>()
+    private val cocktailDetailResponse: CocktailDetailResponse = mockk<CocktailDetailResponse>()
 
     @Before
     fun setUp() {
@@ -21,15 +24,10 @@ class CocktailDetailMapperTest {
     @Test
     fun `GIVEN cocktail detail response model WHEN getCocktailDetail is called THEN return resource cocktail detail model`() {
 
-        // GIVEN
-        val cocktailDetailResponseModel = TestUtils.convertJsonToModel(TestUtils.getJsonFile(cocktailDetailResponseModel), CocktailDetailResponse::class.java)
-        val cocktailDetailModel = TestUtils.parseJSONToCocktailDetail(TestUtils.getJsonFile(cocktailDetailModel))
+        val cocktailDetailModel = TestUtils.convertJsonToModel(TestUtils.getJsonFile(cocktailDetailJson), cocktailDetail::class.java)
 
-        // WHEN
-        val result = cocktailDetailMapper.getCocktailDetail(cocktailDetailResponseModel)
+        val result = cocktailDetailMapper.getCocktailDetail(cocktailDetailResponse)
 
-        //Then
-        assertEquals(cocktailDetailModel, result)
-
+        assertEquals(cocktailDetail, result)
     }
 }

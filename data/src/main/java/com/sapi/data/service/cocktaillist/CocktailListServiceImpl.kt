@@ -24,7 +24,7 @@ class CocktailListServiceImpl @Inject constructor(
 
     override suspend fun fetchCocktailList() : Resources<List<CocktailList>> =
 
-    hitApi(
+    hitApiCall(
         internetUtil = internetUtil,
         apiToBeCalled = { cocktailApiService.getCocktailList() },
         mapper = { response -> cocktailListMapper.getCocktailList(response.body()!!)  }

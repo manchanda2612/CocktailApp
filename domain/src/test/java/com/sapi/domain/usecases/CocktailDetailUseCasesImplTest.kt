@@ -4,19 +4,15 @@ import com.sapi.common.constant.CommonConstant
 import com.sapi.common.network.DataException
 import com.sapi.common.network.NetworkException
 import com.sapi.common.network.Resources
-import com.sapi.domain.constant.cocktailDetailModel
 import com.sapi.domain.constant.cocktailId
 import com.sapi.domain.constant.internalServerError
 import com.sapi.domain.constant.mapperError
 import com.sapi.domain.model.cocktaildetail.CocktailDetail
 import com.sapi.domain.repository.cocktaildetail.CocktailDetailRepository
 import com.sapi.domain.usecases.cocktaildetail.CocktailDetailUseCasesImpl
-import com.sapi.domain.util.TestUtils
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -27,69 +23,79 @@ import retrofit2.Response
 
 class CocktailDetailUseCasesImplTest {
 
-    private lateinit var mockCocktailDetailRepository: CocktailDetailRepository
     private lateinit var cocktailDetailUseCasesImpl: CocktailDetailUseCasesImpl
+    private val mockCocktailDetailRepository: CocktailDetailRepository =
+        mockk<CocktailDetailRepository>()
+    private val mockCocktailDetail = mockk<CocktailDetail>()
 
 
     @Before
     fun setUp() {
-        mockCocktailDetailRepository = mockk<CocktailDetailRepository>()
         cocktailDetailUseCasesImpl = CocktailDetailUseCasesImpl(mockCocktailDetailRepository)
     }
 
 
     @Test
-    fun `GIVEN cocktail detail repository WHEN fetchCocktailDetail is called THEN return flow resource cocktail detail model`() =
+    fun `GIVEN cocktail detail repository WHEN fetchCocktailDetail is called THEN return resource cocktail detail model`() =
         runTest {
 
-            // GIVEN
-            val cocktailDetailModel = TestUtils.parseJSONToCocktailDetail(TestUtils.getJsonFile(cocktailDetailModel))
+            coEvery { mockCocktailDetailRepository.fetchCocktailDetail(cocktailId) } returns Resources.Success(
+                mockCocktailDetail
+            )
 
-            coEvery { mockCocktailDetailRepository.fetchCocktailDetail(cocktailId) } returns flowOf(cocktailDetailModel)
 
-            // Act
-            val result = mutableListOf<Resources<CocktailDetail>>()
-
-            cocktailDetailUseCasesImpl.invoke(cocktailId).collect { result.add(it) }
+            val result = cocktailDetailUseCasesImpl.invoke(cocktailId)
 
             // Assert
-            assertEquals(cocktailDetailModel, result.first())
+            assertEquals(Resources.Success(mockCocktailDetail), result)
         }
 
 
-     @Test
-     fun `GIVEN cocktail detail repository WHEN fetchCocktailDetail is called THEN return resource failure network exception`() = runTest {
+    @Test
+    fun `GIVEN cocktail detail repository WHEN fetchCocktailDetail is called THEN return resource failure network exception`() =
+        runTest {
 
-         val expectedException = NetworkException(CommonConstant.InternetErrorMessage)
+            val expectedException = NetworkException(CommonConstant.InternetErrorMessage)
 
-         coEvery { mockCocktailDetailRepository.fetchCocktailDetail(cocktailId) } returns flowOf(Resources.Failure(expectedException))
+            coEvery { mockCocktailDetailRepository.fetchCocktailDetail(cocktailId) } returns Resources.Failure(
+                expectedException
+            )
 
-         val result = cocktailDetailUseCasesImpl.invoke(cocktailId).first()
+            val result = cocktailDetailUseCasesImpl.invoke(cocktailId)
 
-         assertEquals(expectedException.message, (result as Resources.Failure).exception.message)
-     }
+            assertEquals(expectedException.message, (result as Resources.Failure).exception.message)
+        }
 
 
     @Test
-     fun `GIVEN cocktail detail repository WHEN fetchCocktailDetail is called THEN return resource failure api exception`() = runTest {
+    fun `GIVEN cocktail detail repository WHEN fetchCocktailDetail is called THEN return resource failure api exception`() =
+        runTest {
 
-     val exception = HttpException(Response.error<ResponseBody>(500, internalServerError.toResponseBody()))
+            val exception = HttpException(
+                Response.error<ResponseBody>(
+                    500,
+                    internalServerError.toResponseBody()
+                )
+            )
 
-         coEvery { mockCocktailDetailRepository.fetchCocktailDetail(cocktailId) } returns flowOf(Resources.Failure(exception))
+            coEvery { mockCocktailDetailRepository.fetchCocktailDetail(cocktailId) } returns Resources.Failure(
+                exception
+            )
 
-         val result = cocktailDetailUseCasesImpl.invoke(cocktailId).first()
+            val result = cocktailDetailUseCasesImpl.invoke(cocktailId)
 
-         assertEquals(exception.message, (result as Resources.Failure).exception.message)
-     }
+            assertEquals(exception.message, (result as Resources.Failure).exception.message)
+        }
 
-  @Test
-     fun `GIVEN cocktail detail repository WHEN fetchCocktailDetail is called THEN return resource failure data exception`() = runTest {
+    @Test
+    fun `GIVEN cocktail detail repository WHEN fetchCocktailDetail is called THEN return resource failure data exception`() =
+        runTest {
 
          val exception = DataException(mapperError)
 
-         coEvery { mockCocktailDetailRepository.fetchCocktailDetail(cocktailId) } returns flowOf(Resources.Failure(exception))
+         coEvery { mockCocktailDetailRepository.fetchCocktailDetail(cocktailId) } returns Resources.Failure(exception)
 
-         val result = cocktailDetailUseCasesImpl.invoke(cocktailId).first()
+         val result = cocktailDetailUseCasesImpl.invoke(cocktailId)
 
          assertEquals(exception.message, (result as Resources.Failure).exception.message)
      }

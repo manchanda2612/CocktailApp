@@ -79,6 +79,7 @@ dependencies {
     testImplementation rootProject.ext.testDependencies.mockk
     testImplementation rootProject.ext.dependencies.gson
     testImplementation rootProject.ext.testDependencies.coroutinesTest
+    testImplementation 'app.cash.turbine:turbine:1.0.0'
 
     implementation rootProject.ext.dependencies.coreJetpack
     implementation rootProject.ext.dependencies.material

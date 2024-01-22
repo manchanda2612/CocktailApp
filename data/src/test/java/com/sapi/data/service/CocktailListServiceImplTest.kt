@@ -5,10 +5,9 @@ import com.sapi.common.network.DataException
 import com.sapi.common.network.NetworkException
 import com.sapi.common.network.Resources
 import com.sapi.common.util.InternetUtil
-import com.sapi.data.constant.cocktailListModel
-import com.sapi.data.constant.cocktailListResponseModel
+import com.sapi.data.constant.cocktailListJson
+import com.sapi.data.constant.cocktailListResponseJson
 import com.sapi.data.constant.internalServerError
-import com.sapi.data.constant.mapperError
 import com.sapi.data.mapper.cocktaillist.CocktailListMapper
 import com.sapi.data.model.cocktaillist.CocktailListResponse
 import com.sapi.data.network.CocktailApiService
@@ -17,15 +16,11 @@ import com.sapi.data.util.TestUtils
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -35,7 +30,6 @@ import retrofit2.Response
 class CocktailListServiceImplTest {
 
     private lateinit var cocktailListServiceImpl: CocktailListServiceImpl
-    private val testDispatcher = StandardTestDispatcher()
 
     // Mock dependencies
     private val mockCocktailApiService = mockk<CocktailApiService>()
@@ -44,7 +38,6 @@ class CocktailListServiceImplTest {
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(testDispatcher)
 
         // Create an instance of the CocktailListServiceImpl using the mock dependencies
         cocktailListServiceImpl = CocktailListServiceImpl(
@@ -57,27 +50,27 @@ class CocktailListServiceImplTest {
     @Test
     fun `fetchCocktailList success response should emit Resources Success`() = runTest {
 
-        val cocktailListResponseModel = TestUtils.convertJsonToResponseModel(
-            TestUtils.getJsonFile(cocktailListResponseModel),
+        val cocktailListResponse = TestUtils.convertJsonToResponseModel(
+            TestUtils.getJsonFile(cocktailListResponseJson),
             CocktailListResponse::class.java
         )
 
         val cocktailListModel =
-            TestUtils.parseJSONToCocktailList(TestUtils.getJsonFile(cocktailListModel))
+            TestUtils.parseJSONToCocktailList(TestUtils.getJsonFile(cocktailListJson))
 
 
         coEvery { mockInternetUtil.isInternetAvailable() } returns true
-        coEvery { mockCocktailApiService.getCocktailList() } returns cocktailListResponseModel
+        coEvery { mockCocktailApiService.getCocktailList() } returns cocktailListResponse
         coEvery {
-            cocktailListResponseModel.body()
+            cocktailListResponse.body()
                 ?.let { mockCocktailListMapper.getCocktailList(it) }
         } returns cocktailListModel
 
 
-        val result = cocktailListServiceImpl.fetchCocktailList().first()
+        val result = cocktailListServiceImpl.fetchCocktailList()
 
 
-        assertEquals(result, cocktailListModel)
+        assertEquals(result, Resources.Success(cocktailListModel))
 
     }
 
@@ -90,7 +83,7 @@ class CocktailListServiceImplTest {
             every { mockInternetUtil.isInternetAvailable() } returns false
 
             // Act
-            val exceptedResult = cocktailListServiceImpl.fetchCocktailList().first()
+            val exceptedResult = cocktailListServiceImpl.fetchCocktailList()
 
             // Assert
             assertEquals(
@@ -103,8 +96,12 @@ class CocktailListServiceImplTest {
     fun `GIVEN cocktail list service WHEN fetchCocktailList is called THEN return resource failure api exception`() =
         runTest {
 
-            val cocktailListResponseModel = TestUtils.convertJsonToResponseModel(TestUtils.getJsonFile(cocktailListResponseModel), CocktailListResponse::class.java)
-            val apiException = Response.error<CocktailListResponse>(500, internalServerError.toResponseBody())
+            val cocktailListResponseModel = TestUtils.convertJsonToResponseModel(
+                TestUtils.getJsonFile(cocktailListResponseJson),
+                CocktailListResponse::class.java
+            )
+            val apiException =
+                Response.error<CocktailListResponse>(500, internalServerError.toResponseBody())
 
             // Arrange
             coEvery { mockInternetUtil.isInternetAvailable() } returns true
@@ -121,28 +118,23 @@ class CocktailListServiceImplTest {
         }
 
 
-        @Test
-        fun `fetchCocktailList data exception should emit Resources_Failure_DataException`() = runTest {
-            // Arrange
-           val exception = DataException(mapperError)
-            val cocktailListResponseModel = TestUtils.convertJsonToResponseModel(TestUtils.getJsonFile(cocktailListResponseModel), CocktailListResponse::class.java)
+    @Test
+    fun `fetchCocktailList data exception should emit Resources_Failure_DataException`() = runTest {
 
-           // Arrange
-           coEvery { mockInternetUtil.isInternetAvailable() } returns true
-           coEvery { mockCocktailApiService.getCocktailList() } returns cocktailListResponseModel
-            coEvery { cocktailListResponseModel.body()
-                ?.let { mockCocktailListMapper.getCocktailList(it) } } returns Resources.Failure(exception)
+        val dataException = DataException(CommonConstant.ErrorMessage)
+        val exception = retrofit2.HttpException(
+        Response.error<ResponseBody>(
+            503,
+            "Address no found".toResponseBody("plain/text".toMediaTypeOrNull())
+        )
+    )
 
-           // Act
-           val result = cocktailListServiceImpl.fetchCocktailList().first()
-
-           // Assert
-           assertEquals(exception.message, (result as Resources.Failure).exception.message)
-
+        coEvery { mockInternetUtil.isInternetAvailable() } returns true
+        coEvery { mockCocktailApiService.getCocktailList() } coAnswers {
+            throw exception
         }
+        val result = cocktailListServiceImpl.fetchCocktailList()
 
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain()
+        assertEquals(dataException.message, (result as Resources.Failure).exception.message)
     }
 }

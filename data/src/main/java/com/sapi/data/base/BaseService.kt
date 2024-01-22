@@ -19,7 +19,7 @@ import retrofit2.Response
  */
 abstract class BaseService {
 
-    suspend fun <T, R> hitApi(
+    suspend fun <T, R> hitApiCall(
         internetUtil: InternetUtil,
         apiToBeCalled: suspend () -> Response<T>,
         mapper: (Response<T>) -> R

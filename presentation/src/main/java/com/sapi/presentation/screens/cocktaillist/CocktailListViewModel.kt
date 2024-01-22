@@ -55,7 +55,7 @@ class CocktailListViewModel @Inject constructor(
     }
 
 
-    private fun navigateToDetailScreen(id: Int) {
+    private fun navigateToDetailScreen(id: String) {
         viewModelScope.launch {
             sideEffect.emit(CocktailListSideEffect.NavigateToDetails(id))
         }

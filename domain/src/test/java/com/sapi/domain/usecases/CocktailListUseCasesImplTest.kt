@@ -8,15 +8,12 @@ import com.sapi.common.network.Resources
 import com.sapi.domain.constant.cocktailListModel
 import com.sapi.domain.constant.internalServerError
 import com.sapi.domain.constant.mapperError
-import com.sapi.domain.model.cocktaillist.CocktailList
 import com.sapi.domain.repository.cocktaillist.CocktailListRepository
 import com.sapi.domain.usecases.cocktaillist.CocktailListUseCasesImpl
 import com.sapi.domain.util.TestUtils
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -39,22 +36,16 @@ class CocktailListUseCasesImplTest {
 
 
     @Test
-    fun `GIVEN cocktail list repository WHEN fetchCocktailList is called THEN return flow resource cocktail list model`() =
+    fun `GIVEN cocktail list repository WHEN fetchCocktailList is called THEN return resource cocktail list model`() =
         runTest {
 
-            // GIVEN
             val cocktailListModel =
                 TestUtils.parseJSONToCocktailList(TestUtils.getJsonFile(cocktailListModel))
 
-            coEvery { mockCocktailListRepository.fetchCocktailList() } returns flowOf(cocktailListModel)
+            coEvery { mockCocktailListRepository.fetchCocktailList() } returns cocktailListModel
+            val result =  cocktailListUseCasesImpl.invoke()
 
-            // Act
-            val result = mutableListOf<Resources<List<CocktailList>>>()
-
-            cocktailListUseCasesImpl.invoke().collect { result.add(it) }
-
-            // Assert
-            assertEquals(cocktailListModel, result.first())
+            assertEquals(cocktailListModel, result)
         }
 
     @Test
@@ -62,9 +53,9 @@ class CocktailListUseCasesImplTest {
 
         val expectedException = NetworkException(CommonConstant.InternetErrorMessage)
 
-        coEvery { mockCocktailListRepository.fetchCocktailList() } returns flowOf(Resources.Failure(expectedException))
+        coEvery { mockCocktailListRepository.fetchCocktailList() } returns Resources.Failure(expectedException)
 
-        val result = cocktailListUseCasesImpl.invoke().first()
+        val result = cocktailListUseCasesImpl.invoke()
 
         assertEquals(expectedException.message, (result as Resources.Failure).exception.message)
     }
@@ -75,9 +66,9 @@ class CocktailListUseCasesImplTest {
 
      val exception = HttpException(Response.error<ResponseBody>(500, internalServerError.toResponseBody()))
 
-         coEvery { mockCocktailListRepository.fetchCocktailList() } returns flowOf(Resources.Failure(exception))
+         coEvery { mockCocktailListRepository.fetchCocktailList() } returns Resources.Failure(exception)
 
-         val result = cocktailListUseCasesImpl.invoke().first()
+         val result = cocktailListUseCasesImpl.invoke()
 
          assertEquals(exception.message, (result as Resources.Failure).exception.message)
      }
@@ -85,13 +76,14 @@ class CocktailListUseCasesImplTest {
     @Test
      fun `GIVEN cocktail list repository WHEN fetchCocktailList is called THEN return resource failure data exception`() = runTest {
 
-         val exception = DataException(mapperError)
+        val exception = DataException(mapperError)
 
-         coEvery { mockCocktailListRepository.fetchCocktailList() } returns flowOf(Resources.Failure(exception))
+        coEvery { mockCocktailListRepository.fetchCocktailList() } returns Resources.Failure(
+            exception
+        )
 
-         val result = cocktailListUseCasesImpl.invoke().first()
+        val result = cocktailListUseCasesImpl.invoke()
 
-         assertEquals(exception.message, (result as Resources.Failure).exception.message)
-     }
-
+        assertEquals(exception.message, (result as Resources.Failure).exception.message)
+    }
 }

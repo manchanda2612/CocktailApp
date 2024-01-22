@@ -13,9 +13,9 @@ sealed interface CocktailListViewState : ViewState {
 
 sealed interface CocktailListViewIntent : ViewIntent {
     object FetchCocktailListView : CocktailListViewIntent
-    class OnViewCocktailItemClick(val id: Int) : CocktailListViewIntent
+    class OnViewCocktailItemClick(val id: String) : CocktailListViewIntent
 }
 
 sealed interface CocktailListSideEffect : SideEffect {
-    class NavigateToDetails(val id: Int) : CocktailListSideEffect
+    class NavigateToDetails(val id: String) : CocktailListSideEffect
 }
