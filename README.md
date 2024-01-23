@@ -1,4 +1,4 @@
-![Alt text](/Users/neemanch/Desktop/cocktail_listing.png?raw=true "Cocktail Listing") ![Alt text](/Users/neemanch/Desktop/cocktail_detail.png?raw=true "Cocktail Detail") 
+![Cocktail Listing](/Users/neemanch/Desktop/cocktail_listing.png?raw=true)
 # CocktailApp
 The "CocktailApp" is a mobile application designed to provide users with a seamless experience of exploring and discovering cocktails. The app has two primary screens: a cocktail listing screen and a cocktail detail screen.
 
