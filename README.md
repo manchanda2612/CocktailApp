@@ -1,3 +1,4 @@
+![Alt text](/Users/neemanch/Desktop/cocktail_listing.png?raw=true "Cocktail Listing") ![Alt text](/Users/neemanch/Desktop/cocktail_detail.png?raw=true "Cocktail Detail") 
 # CocktailApp
 The "CocktailApp" is a mobile application designed to provide users with a seamless experience of exploring and discovering cocktails. The app has two primary screens: a cocktail listing screen and a cocktail detail screen.
 
@@ -25,3 +26,4 @@ Instruction to make the drink: Brief instructions were provided about the drink.
 Date : Date and time when that cocktail ingredient has changed or something new has added.
 Navigation options: Users can go back to the cocktail listing screen or perform other actions.
 Error handling and loading indicators: Similar to the cocktail listing screen, there might be loading indicators and error messages.
+
