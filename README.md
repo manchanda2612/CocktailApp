@@ -1,5 +1,5 @@
 # CocktailApp
-<img width="378" alt="cocktail_listing" src="https://github.com/manchanda2612/CocktailApp/assets/13693987/d241f212-c4e6-41c5-b528-a368ad52ad58">
+<img width="378" alt="cocktail_listing" src="https://github.com/manchanda2612/CocktailApp/assets/13693987/d241f212-c4e6-41c5-b528-a368ad52ad58"> <img width="380" alt="cocktail_detail" src="https://github.com/manchanda2612/CocktailApp/assets/13693987/105dbc65-65e3-4d6f-a0e0-4b8f835b3307">
 
 The "CocktailApp" is a mobile application designed to provide users with a seamless experience of exploring and discovering cocktails. The app has two primary screens: a cocktail listing screen and a cocktail detail screen.
 
