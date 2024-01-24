@@ -3,11 +3,7 @@ package com.sapi.domain.util
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.sapi.common.network.Resources
-import com.sapi.domain.model.cocktaildetail.CocktailDetail
 import com.sapi.domain.model.cocktaillist.CocktailList
-/*
-import retrofit2.Response
-*/
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -46,13 +42,6 @@ class TestUtils {
                     val cocktailList = gson.fromJson<List<CocktailList>>(jsonString, listType)
                     return Resources.Success(cocktailList)
         }
-
-        fun parseJSONToCocktailDetail(jsonString: String): Resources<CocktailDetail> {
-            val listType = object : TypeToken<CocktailDetail>() {}.type
-            val cocktailDetail = gson.fromJson<CocktailDetail>(jsonString, listType)
-            return Resources.Success(cocktailDetail)
-        }
-
     }
 }
 

@@ -2,9 +2,6 @@ package com.sapi.presentation.util
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-/*
-import retrofit2.Response
-*/
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -37,11 +34,9 @@ class TestUtils {
         }
 
         inline fun <reified T> convertJsonToModel(jsonString: String): T {
-            val gson = Gson()
             val type = object : TypeToken<T>() {}.type
-            return gson.fromJson(jsonString, type)
+            return Gson().fromJson(jsonString, type)
         }
-
     }
 }
 
