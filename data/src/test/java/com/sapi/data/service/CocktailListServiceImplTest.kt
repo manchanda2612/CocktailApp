@@ -103,18 +103,14 @@ class CocktailListServiceImplTest {
             val apiException =
                 Response.error<CocktailListResponse>(500, internalServerError.toResponseBody())
 
-            // Arrange
             coEvery { mockInternetUtil.isInternetAvailable() } returns true
             coEvery { mockCocktailApiService.getCocktailList() } returns cocktailListResponseModel
             coEvery { mockCocktailApiService.getCocktailList().isSuccessful } returns false
             coEvery { mockCocktailApiService.getCocktailList() } returns apiException
 
-            // Act
             val result = mockCocktailApiService.getCocktailList()
 
-            // Assert
             assertEquals(apiException.errorBody().toString(), result.errorBody().toString())
-
         }
 
 
