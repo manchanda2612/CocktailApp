@@ -3,6 +3,7 @@ package com.sapi.presentation.mapper.cocktaildetail
 import com.sapi.domain.model.cocktaildetail.CocktailDetail
 import com.sapi.presentation.constant.MapperConstant
 import com.sapi.presentation.model.cocktaildetail.CocktailDetailDisplay
+import com.sapi.presentation.utils.MapperUtil.Companion.mapStringWithHeading
 import javax.inject.Inject
 
 /**
@@ -14,11 +15,11 @@ class CocktailDetailDisplayMapper @Inject constructor() {
         cocktailDetailModel.run {
             CocktailDetailDisplay(cocktailId,
                 cocktailName,
-                MapperConstant.DrinkType.plus(isAlcoholic),
-                MapperConstant.Category.plus(cocktailCategory),
+                mapStringWithHeading(MapperConstant.DrinkType, isAlcoholic),
+                mapStringWithHeading(MapperConstant.Category, cocktailCategory),
                 cocktailImage,
-                MapperConstant.Instructions.plus(cocktailInstruction),
-                MapperConstant.Modified.plus(cocktailModifiedDate)
+                mapStringWithHeading(MapperConstant.Instructions, cocktailInstruction),
+                mapStringWithHeading(MapperConstant.Modified, cocktailModifiedDate),
                 )
         }
 }
