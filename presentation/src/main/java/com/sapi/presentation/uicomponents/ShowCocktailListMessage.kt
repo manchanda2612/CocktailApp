@@ -1,7 +1,6 @@
 package com.sapi.presentation.uicomponents
 
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,7 +13,7 @@ import com.sapi.presentation.theme.Dimens
 internal fun ShowCocktailListMessage(
     text : String,
     textStyle : TextStyle,
-    modifier: Modifier = Modifier.fillMaxWidth(),
+    modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Center
 ) {
 

@@ -35,12 +35,14 @@ internal fun CocktailItemCardView (cocktail: CocktailListDisplay, onItemClick: (
 
                 ShowCocktailListMessage(
                     text = cocktail.cocktailName,
-                    textStyle = MaterialTheme.typography.headlineMedium
+                    textStyle = MaterialTheme.typography.headlineMedium,
+                    modifier = Modifier.fillMaxWidth()
                 )
 
                 ShowCocktailListMessage(
                     text = cocktail.isAlcoholic,
-                    textStyle = MaterialTheme.typography.bodyMedium
+                    textStyle = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.fillMaxWidth()
                 )
             }
         }
