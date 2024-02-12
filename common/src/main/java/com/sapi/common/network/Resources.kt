@@ -15,7 +15,7 @@ sealed class Resources<out T> {
 
     data class Success<out T>(val data: T) : Resources<T>()
 
-    data class Failure<T>(val exception: Exception) : Resources<T>()
+    data class Failure(val exception: Exception) : Resources<Nothing>()
 
     object Loading : Resources<Nothing>()
 }

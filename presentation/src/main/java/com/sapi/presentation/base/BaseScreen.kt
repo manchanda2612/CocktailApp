@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 
 
 /**
@@ -31,7 +32,7 @@ import androidx.compose.ui.text.style.TextAlign
  * @param content The content to be displayed on the screen.
  */
 @Composable
-fun BaseScreen(
+internal fun BaseScreen(
     title: String,
     showBackButton: Boolean = false,
     onBackButtonClicked: (() -> Unit)? = null,
@@ -41,7 +42,7 @@ fun BaseScreen(
         topBar = {
             TopAppBar(
                 modifier = Modifier.fillMaxWidth(),
-                colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = colorResource(R.color.purple_50)),
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = colorResource(R.color.purple_50)),
                 title = {
                     Text(
                         text = title,
@@ -69,6 +70,17 @@ fun BaseScreen(
     ) {
         Surface(modifier = Modifier.padding(it)) {
             content()
+        }
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+private fun BaseScreenPreview() {
+    MaterialTheme {
+        BaseScreen(title = stringResource(id = R.string.cocktail_listing)) {
+             Text(text = stringResource(id = R.string.app_name))
         }
     }
 }

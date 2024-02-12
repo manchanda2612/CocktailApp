@@ -13,6 +13,7 @@ import com.sapi.data.util.TestUtils
 import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -21,6 +22,7 @@ import org.junit.Test
 import retrofit2.HttpException
 import retrofit2.Response
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class CocktailListRepositoryImplTest {
 
     private lateinit var mockCocktailListService: CocktailListService

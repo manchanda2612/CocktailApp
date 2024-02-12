@@ -6,9 +6,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.sapi.presentation.model.cocktaillist.CocktailListDisplay
 import com.sapi.presentation.uicomponents.CocktailItemCardView
@@ -17,25 +14,28 @@ import com.sapi.presentation.uicomponents.ShowProgressBar
 
 
 @Composable
-internal fun CocktailListScreen(itemClick: (CocktailListDisplay) -> Unit) {
+internal fun CocktailListScreen(itemClick: (cocktailItem : String) -> Unit) {
 
-    with(hiltViewModel<CocktailListViewModel>()) {
+    val cocktailViewModel = hiltViewModel<CocktailListViewModel>()
 
-        GetCocktailList(cocktailListViewModel = this)
+    with(cocktailViewModel) {
 
         val viewState by viewState.collectAsState()
 
         when (viewState) {
 
-            is CocktailListViewState.Loading -> {
+            CocktailListViewState.Loading -> {
                 ShowProgressBar(show = true)
             }
 
             is CocktailListViewState.Success -> {
                 ShowProgressBar(show = false)
-                ShowCocktailList(cocktailList = (viewState as CocktailListViewState.Success).data,
+                ShowCocktailList(
+                    cocktailList = (viewState as CocktailListViewState.Success).data,
                     onItemClick = {
-                        itemClick.invoke(it)
+                        cocktailViewModel.sendIntent(
+                            CocktailListViewIntent.OnViewCocktailItemClick(it)
+                        )
                     })
             }
 
@@ -43,28 +43,23 @@ internal fun CocktailListScreen(itemClick: (CocktailListDisplay) -> Unit) {
                 ShowProgressBar(show = false)
                 ShowErrorMessage(message = (viewState as CocktailListViewState.Error).error)
             }
+        }
 
+        val sideEffect by sideEffects.collectAsState(0)
+        when (sideEffect) {
+            is CocktailListSideEffect.NavigateToDetails -> {
+                LaunchedEffect(Unit) {
+                    itemClick((sideEffect as CocktailListSideEffect.NavigateToDetails).id)
+                }
+            }
         }
     }
 }
 
 @Composable
-private fun GetCocktailList(cocktailListViewModel: CocktailListViewModel) {
-
-    var initialApiCalled by rememberSaveable { mutableStateOf(false) }
-
-    if (!initialApiCalled) {
-        LaunchedEffect(Unit) {
-            cocktailListViewModel.sendIntent(CocktailListViewIntent.FetchCocktailListView)
-            initialApiCalled = true
-        }
-    }
-}
-
-@Composable
-private fun ShowCocktailList(
+internal fun ShowCocktailList(
     cocktailList: List<CocktailListDisplay>,
-    onItemClick: (CocktailListDisplay) -> Unit
+    onItemClick: (cocktailId : String) -> Unit
 ) {
 
     cocktailList.let {

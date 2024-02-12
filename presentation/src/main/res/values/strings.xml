@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Presentation</string>
+    <string name="app_name">Cocktail</string>
     <string name="back">Back Button</string>
     <string name="cocktail_listing">Cocktail Listing</string>
     <string name="cocktail_detail">Cocktail Detail</string>

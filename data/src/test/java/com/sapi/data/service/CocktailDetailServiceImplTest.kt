@@ -17,11 +17,15 @@ import com.sapi.domain.model.cocktaildetail.CocktailDetail
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -31,6 +35,8 @@ import retrofit2.Response
 class CocktailDetailServiceImplTest {
 
     private lateinit var cocktailDetailServiceImpl: CocktailDetailServiceImpl
+
+    private val testDispatcher = UnconfinedTestDispatcher()
 
     // Mock dependencies
     private val mockCocktailApiService = mockk<CocktailApiService>()
@@ -44,6 +50,7 @@ class CocktailDetailServiceImplTest {
         // Create an instance of the CocktailListServiceImpl using the mock dependencies
         cocktailDetailServiceImpl = CocktailDetailServiceImpl(
             cocktailApiService = mockCocktailApiService,
+            dispatcher = testDispatcher,
             cocktailDetailMapper = mockCocktailDetailMapper,
             internetUtil = mockInternetUtil
         )
@@ -130,5 +137,10 @@ class CocktailDetailServiceImplTest {
         val result = cocktailDetailServiceImpl.fetchCocktailDetail(cocktailId)
 
         assertEquals(dataException.message, (result as Resources.Failure).exception.message)
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 }

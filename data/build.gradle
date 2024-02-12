@@ -57,6 +57,10 @@ android {
 }
 
 dependencies {
+    //common module
+    implementation project(path: ':common')
+    //domain module
+    implementation project(path: ':domain')
 
     implementation rootProject.ext.dependencies.hilt
     kapt rootProject.ext.dependencies.hiltCompiler
@@ -68,10 +72,4 @@ dependencies {
     testImplementation rootProject.ext.testDependencies.junit
     testImplementation rootProject.ext.testDependencies.mockk
     testImplementation rootProject.ext.testDependencies.coroutinesTest
-
-    //common module
-    implementation project(path: ':common')
-    //domain module
-    implementation project(path: ':domain')
-
 }

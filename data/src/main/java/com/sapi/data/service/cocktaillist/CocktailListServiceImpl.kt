@@ -6,6 +6,7 @@ import com.sapi.data.base.BaseService
 import com.sapi.data.mapper.cocktaillist.CocktailListMapper
 import com.sapi.data.network.CocktailApiService
 import com.sapi.domain.model.cocktaillist.CocktailList
+import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
 /**
@@ -18,6 +19,7 @@ import javax.inject.Inject
  */
 class CocktailListServiceImpl @Inject constructor(
     private val cocktailApiService: CocktailApiService,
+    private val dispatcher : CoroutineDispatcher,
     private val cocktailListMapper: CocktailListMapper,
     private val internetUtil: InternetUtil
 ) : BaseService(), CocktailListService {
@@ -25,8 +27,9 @@ class CocktailListServiceImpl @Inject constructor(
     override suspend fun fetchCocktailList() : Resources<List<CocktailList>> =
 
     hitApiCall(
-        internetUtil = internetUtil,
         apiToBeCalled = { cocktailApiService.getCocktailList() },
-        mapper = { response -> cocktailListMapper.getCocktailList(response.body()!!)  }
+        dispatcher = dispatcher,
+        mapper = { response -> cocktailListMapper.getCocktailList(response.body()!!)  },
+        internetUtil = internetUtil
     )
 }

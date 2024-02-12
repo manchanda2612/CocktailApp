@@ -18,4 +18,4 @@ sealed interface CocktailDetailViewIntent : ViewIntent {
     class FetchCocktailDetail(val cocktailId : String) : CocktailDetailViewIntent
 }
 
-sealed interface CocktailDetailSideEffect : SideEffect
+interface CocktailDetailSideEffect : SideEffect

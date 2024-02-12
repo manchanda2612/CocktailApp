@@ -10,6 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.scopes.ViewModelScoped
 
 /**
  * @author Neeraj Manchanda
@@ -21,10 +22,12 @@ import dagger.hilt.android.components.ViewModelComponent
 class DomainModule {
 
     @Provides
+    @ViewModelScoped
     fun provideCocktailListUseCase(cocktailRepository: CocktailListRepository): CocktailListUseCases =
         CocktailListUseCasesImpl(cocktailRepository)
 
     @Provides
+    @ViewModelScoped
     fun provideCocktailDetailUseCase(cocktailRepository: CocktailDetailRepository): CocktailDetailUseCases =
         CocktailDetailUseCasesImpl(cocktailRepository)
 

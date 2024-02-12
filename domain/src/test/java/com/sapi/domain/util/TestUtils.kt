@@ -29,7 +29,7 @@ class TestUtils {
 
         @Throws(IOException::class)
         private fun getStringFromInputStream(stream: InputStream?): String {
-            var n :Int
+            var n: Int
             val buffer = CharArray(1024 * 4)
             val reader = InputStreamReader(stream, "UTF8")
             val writer = StringWriter()
@@ -37,10 +37,10 @@ class TestUtils {
             return writer.toString()
         }
 
-         fun parseJSONToCocktailList(jsonString: String): Resources<List<CocktailList>> {
-                    val listType = object : TypeToken<List<CocktailList>>() {}.type
-                    val cocktailList = gson.fromJson<List<CocktailList>>(jsonString, listType)
-                    return Resources.Success(cocktailList)
+        fun parseJSONToCocktailList(jsonString: String): Resources<List<CocktailList>> {
+            val listType = object : TypeToken<List<CocktailList>>() {}.type
+            val cocktailList = gson.fromJson<List<CocktailList>>(jsonString, listType)
+            return Resources.Success(cocktailList)
         }
     }
 }

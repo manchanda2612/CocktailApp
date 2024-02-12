@@ -4,6 +4,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'app.cash.paparazzi' version "$paparazzi"
 }
 
 apply from: rootProject.file('dependencies.gradle')
@@ -70,36 +71,26 @@ android {
 }
 
 dependencies {
-
-    testImplementation rootProject.ext.testDependencies.junit
-    androidTestImplementation platform(rootProject.ext.dependencies.composeBom)
-    androidTestImplementation rootProject.ext.testDependencies.composeUiTest
-    debugImplementation rootProject.ext.testDependencies.composeUiTooling
-    debugImplementation rootProject.ext.testDependencies.composeUiManifest
-    testImplementation rootProject.ext.testDependencies.mockk
-    testImplementation rootProject.ext.dependencies.gson
-    testImplementation rootProject.ext.testDependencies.coroutinesTest
-    testImplementation 'app.cash.turbine:turbine:1.0.0'
-
-    implementation rootProject.ext.dependencies.coreJetpack
-    implementation rootProject.ext.dependencies.material
-    implementation rootProject.ext.dependencies.hilt
-    kapt rootProject.ext.dependencies.hiltCompiler
-    implementation platform(rootProject.ext.dependencies.composeBom)
-    implementation rootProject.ext.dependencies.composeUi
-    implementation rootProject.ext.dependencies.composeGraphics
-    implementation rootProject.ext.dependencies.composeActivity
-    implementation rootProject.ext.dependencies.composeUiTooling
-    implementation rootProject.ext.dependencies.composeMaterial3
-    implementation rootProject.ext.dependencies.coilCompose
-    implementation rootProject.ext.dependencies.composeConstraint
-    implementation rootProject.ext.dependencies.composeNavigation
-    implementation rootProject.ext.dependencies.hiltCompose
-    implementation rootProject.ext.dependencies.composeMaterial
-
     //domain dependency
     implementation project(path: ':domain')
     //common module
     implementation project(path: ':common')
 
+    implementation rootProject.ext.dependencies.coreJetpack
+    implementation rootProject.ext.dependencies.material
+
+    implementation rootProject.ext.dependencies.gson
+
+    implementation rootProject.ext.dependencies.hilt
+    kapt rootProject.ext.dependencies.hiltCompiler
+    implementation rootProject.ext.dependencies.hiltCompose
+
+    implementation rootProject.ext.dependencies.composeUiTooling
+    implementation rootProject.ext.dependencies.composeMaterial3
+    implementation rootProject.ext.dependencies.coilCompose
+
+    testImplementation rootProject.ext.testDependencies.junit
+    testImplementation rootProject.ext.testDependencies.mockk
+    testImplementation rootProject.ext.testDependencies.coroutinesTest
+    testImplementation rootProject.ext.testDependencies.turbine
 }

@@ -35,7 +35,6 @@ object NetworkModule {
     }
 
     @Provides
-    @Singleton
     fun provideOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .readTimeout(TIMEOUT, TimeUnit.SECONDS)

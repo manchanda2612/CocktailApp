@@ -16,9 +16,11 @@ import javax.inject.Inject
 class CocktailListViewModel @Inject constructor(
     private val cocktailListUseCase: CocktailListUseCases,
     private val cocktailListDisplayMapper: CocktailListDisplayMapper
-)
-    : BaseViewModel<CocktailListViewState, CocktailListViewIntent, CocktailListSideEffect>() {
+) : BaseViewModel<CocktailListViewState, CocktailListViewIntent, CocktailListSideEffect>() {
 
+    init {
+        sendIntent(CocktailListViewIntent.FetchCocktailListView)
+    }
 
     override fun createInitialState(): CocktailListViewState =
         CocktailListViewState.Loading
@@ -33,7 +35,7 @@ class CocktailListViewModel @Inject constructor(
     private fun fetchCocktailList() {
         viewModelScope.launch {
             when (cocktailListUseCase.invoke()) {
-                is Resources.Loading -> {
+                Resources.Loading -> {
                     state.emit(CocktailListViewState.Loading)
                 }
 
@@ -48,7 +50,7 @@ class CocktailListViewModel @Inject constructor(
                 }
 
                 is Resources.Failure -> {
-                    state.emit(CocktailListViewState.Error((cocktailListUseCase.invoke() as Resources.Failure<List<CocktailList>>).exception.message.toString()))
+                    state.emit(CocktailListViewState.Error((cocktailListUseCase.invoke() as Resources.Failure).exception.message.toString()))
                 }
             }
         }

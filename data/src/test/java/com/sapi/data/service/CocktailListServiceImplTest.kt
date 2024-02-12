@@ -16,11 +16,16 @@ import com.sapi.data.util.TestUtils
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.test.setMain
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -31,6 +36,8 @@ class CocktailListServiceImplTest {
 
     private lateinit var cocktailListServiceImpl: CocktailListServiceImpl
 
+    private val testDispatcher = UnconfinedTestDispatcher()
+
     // Mock dependencies
     private val mockCocktailApiService = mockk<CocktailApiService>()
     private val mockCocktailListMapper = mockk<CocktailListMapper>()
@@ -39,9 +46,12 @@ class CocktailListServiceImplTest {
     @Before
     fun setUp() {
 
+        Dispatchers.setMain(testDispatcher)
+
         // Create an instance of the CocktailListServiceImpl using the mock dependencies
         cocktailListServiceImpl = CocktailListServiceImpl(
             cocktailApiService = mockCocktailApiService,
+            dispatcher = testDispatcher,
             cocktailListMapper = mockCocktailListMapper,
             internetUtil = mockInternetUtil
         )
@@ -113,7 +123,6 @@ class CocktailListServiceImplTest {
             assertEquals(apiException.errorBody().toString(), result.errorBody().toString())
         }
 
-
     @Test
     fun `fetchCocktailList data exception should emit Resources_Failure_DataException`() = runTest {
 
@@ -132,5 +141,9 @@ class CocktailListServiceImplTest {
         val result = cocktailListServiceImpl.fetchCocktailList()
 
         assertEquals(dataException.message, (result as Resources.Failure).exception.message)
+    }
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 }

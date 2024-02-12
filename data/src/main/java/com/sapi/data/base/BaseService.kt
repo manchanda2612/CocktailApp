@@ -6,7 +6,7 @@ import com.sapi.common.network.DataException
 import com.sapi.common.network.NetworkException
 import com.sapi.common.network.Resources
 import com.sapi.common.util.InternetUtil
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
@@ -20,12 +20,13 @@ import retrofit2.Response
 abstract class BaseService {
 
     suspend fun <T, R> hitApiCall(
-        internetUtil: InternetUtil,
         apiToBeCalled: suspend () -> Response<T>,
-        mapper: (Response<T>) -> R
+        dispatcher: CoroutineDispatcher,
+        mapper: (Response<T>) -> R,
+        internetUtil: InternetUtil
     ): Resources<R> {
 
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatcher) {
 
             if (internetUtil.isInternetAvailable()) {
                 try {

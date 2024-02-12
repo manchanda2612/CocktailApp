@@ -37,11 +37,6 @@ class TestUtils {
             val type = object : TypeToken<T>() {}.type
             return Gson().fromJson(jsonString, type)
         }
-
-        /*fun <T : Any> convertJsonToModel(jsonString: String, classT : KClass<T>): T {
-            val type = object : TypeToken<T>() {}.type
-            return Gson().fromJson(jsonString, type)
-        }*/
     }
 }
 

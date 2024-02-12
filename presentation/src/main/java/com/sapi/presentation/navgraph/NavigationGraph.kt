@@ -22,7 +22,7 @@ import com.sapi.presentation.screens.cocktaildetail.CocktailDetailScreen
 fun NavigationGraph() {
 
     val navController = rememberNavController()
-    
+
     NavHost(navController = navController, startDestination = Routes.CocktailListScreen.route) {
 
         // Handle Listing screen here
@@ -30,7 +30,7 @@ fun NavigationGraph() {
             BaseScreen(title = stringResource(id = R.string.cocktail_listing)) {
                 CocktailListScreen(
                     itemClick = { cocktailListDisplayModel ->
-                        navController.navigate(Routes.CocktailDetailScreen.route + "/${cocktailListDisplayModel.cocktailId}")
+                        navController.navigate(Routes.CocktailDetailScreen.route + "/${cocktailListDisplayModel}")
                     }
                 )
             }

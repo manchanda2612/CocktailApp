@@ -56,8 +56,6 @@ android {
 }
 
 dependencies {
-
     implementation rootProject.ext.dependencies.hilt
     kapt rootProject.ext.dependencies.hiltCompiler
-
 }
