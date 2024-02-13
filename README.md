@@ -1,5 +1,5 @@
 # CocktailApp
-=========================================================================================
+==================================================================================
 
 ### Description ###
 This sample app was built using MVI architecture where I have used clean architecture, Jetpack compose, coroutine, Solid Principle, coin image rendering library, and Hilt dependency Framework.
