@@ -39,7 +39,7 @@ class CocktailDetailViewModel @Inject constructor(
     private fun fetchCocktailDetail(cocktailId : String) {
         viewModelScope.launch {
             viewModelScope.launch {
-                when (cocktailDetailUseCases.invoke(cocktailId)) {
+                when (cocktailDetailUseCases(cocktailId)) {
                   Resources.Loading -> {
                         state.emit(CocktailDetailViewState.Loading)
                     }
@@ -47,13 +47,13 @@ class CocktailDetailViewModel @Inject constructor(
                     is Resources.Success -> {
                         state.emit(
                             CocktailDetailViewState.Success(
-                                cocktailDetailDisplayMapper.getCocktailDetail((cocktailDetailUseCases.invoke(cocktailId) as Resources.Success<CocktailDetail>).data)
+                                cocktailDetailDisplayMapper.getCocktailDetail((cocktailDetailUseCases(cocktailId) as Resources.Success<CocktailDetail>).data)
                             )
                         )
                     }
 
                     is Resources.Failure -> {
-                        state.emit(CocktailDetailViewState.Failure(((cocktailDetailUseCases.invoke(cocktailId) as Resources.Failure).exception.message.toString())))
+                        state.emit(CocktailDetailViewState.Failure(((cocktailDetailUseCases(cocktailId) as Resources.Failure).exception.message.toString())))
                     }
                 }
             }

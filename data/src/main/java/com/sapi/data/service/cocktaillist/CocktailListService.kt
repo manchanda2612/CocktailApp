@@ -9,5 +9,4 @@ import com.sapi.domain.model.cocktaillist.CocktailList
  */
 interface CocktailListService {
     suspend fun fetchCocktailList() : Resources<List<CocktailList>>
-
 }

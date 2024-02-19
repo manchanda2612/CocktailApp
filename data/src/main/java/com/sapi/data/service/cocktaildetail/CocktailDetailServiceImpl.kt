@@ -34,5 +34,4 @@ class CocktailDetailServiceImpl @Inject constructor(
             mapper = { response -> cocktailDetailMapper.getCocktailDetail(response.body()!!)  },
             internetUtil = internetUtil
         )
-
 }

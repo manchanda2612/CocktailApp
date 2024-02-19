@@ -34,28 +34,27 @@ class CocktailListViewModel @Inject constructor(
 
     private fun fetchCocktailList() {
         viewModelScope.launch {
-            when (cocktailListUseCase.invoke()) {
+            when (cocktailListUseCase()) {
                 Resources.Loading -> {
                     state.emit(CocktailListViewState.Loading)
                 }
 
                 is Resources.Success -> {
-                    state.emit(
+                     state.emit(
                         CocktailListViewState.Success(
                             cocktailListDisplayMapper.getCocktailList(
-                                (cocktailListUseCase.invoke() as Resources.Success<List<CocktailList>>).data
+                                (cocktailListUseCase() as Resources.Success<List<CocktailList>>).data
                             )
                         )
                     )
                 }
 
                 is Resources.Failure -> {
-                    state.emit(CocktailListViewState.Error((cocktailListUseCase.invoke() as Resources.Failure).exception.message.toString()))
+                    state.emit(CocktailListViewState.Error((cocktailListUseCase() as Resources.Failure).exception.message.toString()))
                 }
             }
         }
     }
-
 
     private fun navigateToDetailScreen(id: String) {
         viewModelScope.launch {

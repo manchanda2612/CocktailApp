@@ -10,5 +10,4 @@ import com.sapi.domain.model.cocktaildetail.CocktailDetail
  */
 interface CocktailDetailService {
     suspend fun fetchCocktailDetail(cocktailId : String) : Resources<CocktailDetail>
-
 }

@@ -13,6 +13,7 @@ import javax.inject.Inject
 class CocktailListDisplayMapper @Inject constructor() {
 
     fun getCocktailList(cocktailListModel: List<CocktailList>): List<CocktailListDisplay> {
+
         return cocktailListModel.map { cocktailItem ->
             CocktailListDisplay(
                 cocktailItem.cocktailId,
