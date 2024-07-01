@@ -1,6 +1,5 @@
 package com.sapi.cocktail
 
-
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 

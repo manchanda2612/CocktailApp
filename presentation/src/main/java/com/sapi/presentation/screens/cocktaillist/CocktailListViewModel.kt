@@ -3,7 +3,6 @@ package com.sapi.presentation.screens.cocktaillist
 
 import androidx.lifecycle.viewModelScope
 import com.sapi.common.network.Resources
-import com.sapi.domain.model.cocktaillist.CocktailList
 import com.sapi.domain.usecases.cocktaillist.CocktailListUseCases
 import com.sapi.presentation.base.BaseViewModel
 import com.sapi.presentation.base.ViewIntent
@@ -34,7 +33,8 @@ class CocktailListViewModel @Inject constructor(
 
     private fun fetchCocktailList() {
         viewModelScope.launch {
-            when (cocktailListUseCase()) {
+            val result = cocktailListUseCase()
+            when (result) {
                 Resources.Loading -> {
                     state.emit(CocktailListViewState.Loading)
                 }
@@ -43,14 +43,14 @@ class CocktailListViewModel @Inject constructor(
                      state.emit(
                         CocktailListViewState.Success(
                             cocktailListDisplayMapper.getCocktailList(
-                                (cocktailListUseCase() as Resources.Success<List<CocktailList>>).data
+                                result.data
                             )
                         )
                     )
                 }
 
                 is Resources.Failure -> {
-                    state.emit(CocktailListViewState.Error((cocktailListUseCase() as Resources.Failure).exception.message.toString()))
+                    state.emit(CocktailListViewState.Error(result.exception.message.toString()))
                 }
             }
         }

@@ -4,6 +4,8 @@ import com.sapi.presentation.base.SideEffect
 import com.sapi.presentation.base.ViewIntent
 import com.sapi.presentation.base.ViewState
 import com.sapi.presentation.model.cocktaillist.CocktailListDisplay
+//interface CocktailListMviContract : MVI<ViewState, ViewIntent, SideEffect> {
+
 
 sealed interface CocktailListViewState : ViewState {
     object Loading : CocktailListViewState
